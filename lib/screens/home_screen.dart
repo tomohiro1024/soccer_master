@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF1B5E20), Color(0xFF4CAF50)],
+            colors: [Color(0xFF1565C0), Color(0xFF42A5F5)],
           ),
         ),
         child: SafeArea(
@@ -20,10 +20,31 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.sports_soccer,
-                  size: 120,
-                  color: Colors.white,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    'https://kawase-net.jp/wp-content/uploads/2014/11/KW-140-1-1.jpg',
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const SizedBox(
+                        width: 150,
+                        height: 150,
+                        child: Center(
+                          child: CircularProgressIndicator(color: Colors.white),
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(
+                        Icons.sports_soccer,
+                        size: 120,
+                        color: Colors.white,
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(height: 24),
                 const Text(
@@ -32,14 +53,6 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Soccer Master',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white70,
                   ),
                 ),
                 const SizedBox(height: 60),
@@ -54,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF1B5E20),
+                    foregroundColor: const Color(0xFF1565C0),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 48,
                       vertical: 16,

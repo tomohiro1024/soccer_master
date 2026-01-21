@@ -48,7 +48,7 @@ class ResultScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF1B5E20), Color(0xFF4CAF50)],
+            colors: [Color(0xFF1565C0), Color(0xFF42A5F5)],
           ),
         ),
         child: SafeArea(
@@ -87,7 +87,7 @@ class ResultScreen extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 48,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1B5E20),
+                          color: Color(0xFF1565C0),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -123,7 +123,7 @@ class ResultScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF1B5E20),
+                    foregroundColor: const Color(0xFF1565C0),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 16,

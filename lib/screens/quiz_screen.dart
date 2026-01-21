@@ -69,7 +69,7 @@ class _QuizScreenState extends State<QuizScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('問題 ${currentIndex + 1} / ${quizzes.length}'),
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xFF1565C0),
         foregroundColor: Colors.white,
         automaticallyImplyLeading: false,
       ),
@@ -78,7 +78,7 @@ class _QuizScreenState extends State<QuizScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF2E7D32), Color(0xFF81C784)],
+            colors: [Color(0xFF1976D2), Color(0xFF64B5F6)],
           ),
         ),
         child: SafeArea(
@@ -104,7 +104,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B5E20),
+                      color: Color(0xFF1565C0),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -170,7 +170,7 @@ class _QuizScreenState extends State<QuizScreen> {
               decoration: BoxDecoration(
                 color: answered && (index == correctIndex || index == selectedIndex)
                     ? Colors.white30
-                    : const Color(0xFF1B5E20).withValues(alpha: 0.1),
+                    : const Color(0xFF1565C0).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Center(
