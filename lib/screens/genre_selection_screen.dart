@@ -3,17 +3,17 @@ import '../models/quiz.dart';
 import 'quiz_screen.dart';
 
 class GenreSelectionScreen extends StatelessWidget {
-  final Country country;
+  final League league;
 
-  const GenreSelectionScreen({super.key, required this.country});
+  const GenreSelectionScreen({super.key, required this.league});
 
   @override
   Widget build(BuildContext context) {
-    final countryName = country == Country.japan ? '日本' : 'イングランド';
+    final leagueName = league == League.jLeague ? 'Jリーグ' : 'プレミアリーグ';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('$countryName - ジャンル選択'),
+        title: Text('$leagueName - ジャンル選択'),
         backgroundColor: const Color(0xFF1565C0),
         foregroundColor: Colors.white,
       ),
@@ -75,7 +75,7 @@ class GenreSelectionScreen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => QuizScreen(country: country, genre: genre),
+            builder: (context) => QuizScreen(league: league, genre: genre),
           ),
         );
       },

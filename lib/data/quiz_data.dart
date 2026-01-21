@@ -1,23 +1,23 @@
 import '../models/quiz.dart';
 
 class QuizData {
-  static List<Quiz> getQuizzes(Country country, Genre genre) {
-    if (country == Country.japan) {
+  static List<Quiz> getQuizzes(League league, Genre genre) {
+    if (league == League.jLeague) {
       if (genre == Genre.teamLogo) {
-        return japanTeamLogoQuizzes;
+        return jLeagueTeamLogoQuizzes;
       } else {
-        return japanPlayerQuizzes;
+        return jLeaguePlayerQuizzes;
       }
     } else {
       if (genre == Genre.teamLogo) {
-        return englandTeamLogoQuizzes;
+        return premierLeagueTeamLogoQuizzes;
       } else {
-        return englandPlayerQuizzes;
+        return premierLeaguePlayerQuizzes;
       }
     }
   }
 
-  static final List<Quiz> japanTeamLogoQuizzes = [
+  static final List<Quiz> jLeagueTeamLogoQuizzes = [
     Quiz(
       question: '赤いユニフォームで「赤い悪魔」の愛称を持つJリーグチームは？',
       options: ['浦和レッズ', '鹿島アントラーズ', '名古屋グランパス', 'FC東京'],
@@ -45,7 +45,7 @@ class QuizData {
     ),
   ];
 
-  static final List<Quiz> japanPlayerQuizzes = [
+  static final List<Quiz> jLeaguePlayerQuizzes = [
     Quiz(
       question: 'レアル・マドリードで活躍し、日本代表のエースとしても知られる選手は？',
       options: ['久保建英', '三笘薫', '冨安健洋', '遠藤航'],
@@ -73,7 +73,7 @@ class QuizData {
     ),
   ];
 
-  static final List<Quiz> englandTeamLogoQuizzes = [
+  static final List<Quiz> premierLeagueTeamLogoQuizzes = [
     Quiz(
       question: '「赤い悪魔」の愛称を持つマンチェスターのチームは？',
       options: ['マンチェスター・ユナイテッド', 'マンチェスター・シティ', 'リヴァプール', 'アーセナル'],
@@ -101,7 +101,7 @@ class QuizData {
     ),
   ];
 
-  static final List<Quiz> englandPlayerQuizzes = [
+  static final List<Quiz> premierLeaguePlayerQuizzes = [
     Quiz(
       question: 'マンチェスター・シティで活躍し、ノルウェー代表のストライカーは？',
       options: ['アーリング・ハーランド', 'ハリー・ケイン', 'マーカス・ラッシュフォード', 'ブカヨ・サカ'],

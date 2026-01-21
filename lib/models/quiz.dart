@@ -12,9 +12,9 @@ class Quiz {
   });
 }
 
-enum Country {
-  japan,
-  england,
+enum League {
+  jLeague,
+  premierLeague,
 }
 
 enum Genre {

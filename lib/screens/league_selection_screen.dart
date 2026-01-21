@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../models/quiz.dart';
 import 'genre_selection_screen.dart';
 
-class CountrySelectionScreen extends StatelessWidget {
-  const CountrySelectionScreen({super.key});
+class LeagueSelectionScreen extends StatelessWidget {
+  const LeagueSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('国を選択'),
+        title: const Text('リーグを選択'),
         backgroundColor: const Color(0xFF1565C0),
         foregroundColor: Colors.white,
       ),
@@ -24,10 +24,10 @@ class CountrySelectionScreen extends StatelessWidget {
         child: SafeArea(
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
-                  'どちらの国のクイズに\nチャレンジしますか？',
+                  'どのリーグのクイズに\nチャレンジしますか？',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
@@ -39,17 +39,17 @@ class CountrySelectionScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildCountryButton(
+                    _buildLeagueButton(
                       context,
-                      Country.japan,
+                      League.jLeague,
                       '🇯🇵',
-                      '日本',
+                      'Jリーグ',
                     ),
-                    _buildCountryButton(
+                    _buildLeagueButton(
                       context,
-                      Country.england,
+                      League.premierLeague,
                       '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-                      'イングランド',
+                      'プレミアリーグ',
                     ),
                   ],
                 ),
@@ -61,9 +61,9 @@ class CountrySelectionScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCountryButton(
+  Widget _buildLeagueButton(
     BuildContext context,
-    Country country,
+    League league,
     String flag,
     String name,
   ) {
@@ -72,7 +72,7 @@ class CountrySelectionScreen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => GenreSelectionScreen(country: country),
+            builder: (context) => GenreSelectionScreen(league: league),
           ),
         );
       },

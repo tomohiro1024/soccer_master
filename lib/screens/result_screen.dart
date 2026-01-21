@@ -5,13 +5,13 @@ import 'genre_selection_screen.dart';
 class ResultScreen extends StatelessWidget {
   final int correctCount;
   final int totalCount;
-  final Country country;
+  final League league;
 
   const ResultScreen({
     super.key,
     required this.correctCount,
     required this.totalCount,
-    required this.country,
+    required this.league,
   });
 
   String _getMessage() {
@@ -117,7 +117,7 @@ class ResultScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            GenreSelectionScreen(country: country),
+                            GenreSelectionScreen(league: league),
                       ),
                     );
                   },

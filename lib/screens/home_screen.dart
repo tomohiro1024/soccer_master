@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'country_selection_screen.dart';
+import 'league_selection_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const CountrySelectionScreen(),
+                        builder: (context) => const LeagueSelectionScreen(),
                       ),
                     );
                   },

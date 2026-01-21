@@ -4,10 +4,10 @@ import '../data/quiz_data.dart';
 import 'result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
-  final Country country;
+  final League league;
   final Genre genre;
 
-  const QuizScreen({super.key, required this.country, required this.genre});
+  const QuizScreen({super.key, required this.league, required this.genre});
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -23,7 +23,7 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
-    quizzes = QuizData.getQuizzes(widget.country, widget.genre);
+    quizzes = QuizData.getQuizzes(widget.league, widget.genre);
     quizzes.shuffle();
     quizzes = quizzes.take(5).toList();
   }
@@ -54,7 +54,7 @@ class _QuizScreenState extends State<QuizScreen> {
             builder: (context) => ResultScreen(
               correctCount: correctCount,
               totalCount: quizzes.length,
-              country: widget.country,
+              league: widget.league,
             ),
           ),
         );
