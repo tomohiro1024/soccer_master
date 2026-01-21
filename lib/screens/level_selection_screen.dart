@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import '../models/quiz.dart';
-import 'level_selection_screen.dart';
+import 'quiz_screen.dart';
 
-class GenreSelectionScreen extends StatelessWidget {
+class LevelSelectionScreen extends StatelessWidget {
   final League league;
+  final Genre genre;
 
-  const GenreSelectionScreen({super.key, required this.league});
+  const LevelSelectionScreen({
+    super.key,
+    required this.league,
+    required this.genre,
+  });
 
   @override
   Widget build(BuildContext context) {
     final leagueName = league == League.jLeague ? 'Jリーグ' : 'プレミアリーグ';
+    final genreName = genre == Genre.teamLogo ? 'チームロゴ' : '選手名当て';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('$leagueName - ジャンル選択'),
+        title: Text('$leagueName - $genreName'),
         backgroundColor: const Color(0xFF1565C0),
         foregroundColor: Colors.white,
       ),
@@ -31,7 +37,7 @@ class GenreSelectionScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'クイズのジャンルを\n選んでください',
+                  'レベルを選んでください',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
@@ -40,20 +46,28 @@ class GenreSelectionScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 48),
-                _buildGenreButton(
+                _buildLevelButton(
                   context,
-                  Genre.teamLogo,
-                  Icons.shield,
-                  'チームロゴクイズ',
-                  'チーム名を当てよう！',
+                  Level.level1,
+                  'Level 1',
+                  '初級 - 基本的な問題',
+                  Icons.star_outline,
                 ),
-                const SizedBox(height: 24),
-                _buildGenreButton(
+                const SizedBox(height: 16),
+                _buildLevelButton(
                   context,
-                  Genre.playerName,
-                  Icons.person,
-                  '選手名当てクイズ',
-                  '選手を当てよう！',
+                  Level.level2,
+                  'Level 2',
+                  '中級 - 少し難しい問題',
+                  Icons.star_half,
+                ),
+                const SizedBox(height: 16),
+                _buildLevelButton(
+                  context,
+                  Level.level3,
+                  'Level 3',
+                  '上級 - 難問に挑戦！',
+                  Icons.star,
                 ),
               ],
             ),
@@ -63,19 +77,23 @@ class GenreSelectionScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGenreButton(
+  Widget _buildLevelButton(
     BuildContext context,
-    Genre genre,
-    IconData icon,
+    Level level,
     String title,
     String subtitle,
+    IconData icon,
   ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LevelSelectionScreen(league: league, genre: genre),
+            builder: (context) => QuizScreen(
+              league: league,
+              genre: genre,
+              level: level,
+            ),
           ),
         );
       },
@@ -109,26 +127,28 @@ class GenreSelectionScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1565C0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1565C0),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

@@ -6,8 +6,14 @@ import 'result_screen.dart';
 class QuizScreen extends StatefulWidget {
   final League league;
   final Genre genre;
+  final Level level;
 
-  const QuizScreen({super.key, required this.league, required this.genre});
+  const QuizScreen({
+    super.key,
+    required this.league,
+    required this.genre,
+    required this.level,
+  });
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -23,7 +29,7 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
-    quizzes = QuizData.getQuizzes(widget.league, widget.genre);
+    quizzes = QuizData.getQuizzes(widget.league, widget.genre, widget.level);
     quizzes.shuffle();
     quizzes = quizzes.take(5).toList();
   }
