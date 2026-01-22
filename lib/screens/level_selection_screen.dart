@@ -51,7 +51,7 @@ class LevelSelectionScreen extends StatelessWidget {
                   Level.level1,
                   'Level 1',
                   '初級 - 基本的な問題',
-                  Icons.star_outline,
+                  1,
                 ),
                 const SizedBox(height: 16),
                 _buildLevelButton(
@@ -59,7 +59,7 @@ class LevelSelectionScreen extends StatelessWidget {
                   Level.level2,
                   'Level 2',
                   '中級 - 少し難しい問題',
-                  Icons.star_half,
+                  2,
                 ),
                 const SizedBox(height: 16),
                 _buildLevelButton(
@@ -67,7 +67,7 @@ class LevelSelectionScreen extends StatelessWidget {
                   Level.level3,
                   'Level 3',
                   '上級 - 難問に挑戦！',
-                  Icons.star,
+                  3,
                 ),
               ],
             ),
@@ -82,7 +82,7 @@ class LevelSelectionScreen extends StatelessWidget {
     Level level,
     String title,
     String subtitle,
-    IconData icon,
+    int starCount,
   ) {
     return GestureDetector(
       onTap: () {
@@ -120,10 +120,16 @@ class LevelSelectionScreen extends StatelessWidget {
                 color: const Color(0xFF1565C0),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Icon(
-                icon,
-                size: 36,
-                color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  starCount,
+                  (index) => const Icon(
+                    Icons.star,
+                    size: 18,
+                    color: Colors.amber,
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 16),
