@@ -61,6 +61,7 @@ class _QuizScreenState extends State<QuizScreen> {
               correctCount: correctCount,
               totalCount: quizzes.length,
               league: widget.league,
+              genre: widget.genre,
             ),
           ),
         );
@@ -77,7 +78,31 @@ class _QuizScreenState extends State<QuizScreen> {
         title: Text('問題 ${currentIndex + 1} / ${quizzes.length}'),
         backgroundColor: const Color(0xFF1565C0),
         foregroundColor: Colors.white,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('クイズを終了しますか？'),
+                content: const Text('現在の進捗はリセットされます。'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('キャンセル'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                    child: const Text('終了する'),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(

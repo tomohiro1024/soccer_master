@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import '../models/quiz.dart';
-import 'genre_selection_screen.dart';
+import 'level_selection_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   final int correctCount;
   final int totalCount;
   final League league;
+  final Genre genre;
 
   const ResultScreen({
     super.key,
     required this.correctCount,
     required this.totalCount,
     required this.league,
+    required this.genre,
   });
 
   String _getMessage() {
@@ -117,7 +119,7 @@ class ResultScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            GenreSelectionScreen(league: league),
+                            LevelSelectionScreen(league: league, genre: genre),
                       ),
                     );
                   },
