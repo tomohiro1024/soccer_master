@@ -137,9 +137,9 @@ class _QuizScreenState extends State<QuizScreen> {
                           borderRadius: BorderRadius.circular(12),
                           child: Image.network(
                             quiz.imageUrl!,
-                            width: 150,
-                            height: 150,
-                            fit: BoxFit.cover,
+                            width: 190,
+                            height: 190,
+                            fit: BoxFit.contain,
                             loadingBuilder: (context, child, loadingProgress) {
                               if (loadingProgress == null) return child;
                               return const SizedBox(
