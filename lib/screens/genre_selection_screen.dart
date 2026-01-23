@@ -55,6 +55,16 @@ class GenreSelectionScreen extends StatelessWidget {
                   '選手名当てクイズ',
                   '選手を当てよう！',
                 ),
+                const SizedBox(height: 24),
+                const Text(
+                  '※他のジャンルは随時追加予定です！\nお楽しみに！',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
           ),
@@ -75,7 +85,8 @@ class GenreSelectionScreen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LevelSelectionScreen(league: league, genre: genre),
+            builder:
+                (context) => LevelSelectionScreen(league: league, genre: genre),
           ),
         );
       },
@@ -102,11 +113,7 @@ class GenreSelectionScreen extends StatelessWidget {
                 color: const Color(0xFF1565C0),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Icon(
-                icon,
-                size: 36,
-                color: Colors.white,
-              ),
+              child: Icon(icon, size: 36, color: Colors.white),
             ),
             const SizedBox(width: 16),
             Column(
@@ -123,10 +130,7 @@ class GenreSelectionScreen extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ],
             ),

@@ -26,6 +26,7 @@ class LeagueSelectionScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const SizedBox(height: 18),
                 const Text(
                   'どのリーグのクイズに\nチャレンジしますか？',
                   textAlign: TextAlign.center,
@@ -39,12 +40,7 @@ class LeagueSelectionScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildLeagueButton(
-                      context,
-                      League.jLeague,
-                      '🇯🇵',
-                      'Jリーグ',
-                    ),
+                    _buildLeagueButton(context, League.jLeague, '🇯🇵', 'Jリーグ'),
                     _buildLeagueButton(
                       context,
                       League.premierLeague,
@@ -52,6 +48,16 @@ class LeagueSelectionScreen extends StatelessWidget {
                       'プレミアリーグ',
                     ),
                   ],
+                ),
+                const SizedBox(height: 48),
+                const Text(
+                  '※他のリーグは随時追加予定です！\nお楽しみに！',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -93,10 +99,7 @@ class LeagueSelectionScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              flag,
-              style: const TextStyle(fontSize: 60),
-            ),
+            Text(flag, style: const TextStyle(fontSize: 60)),
             const SizedBox(height: 12),
             Text(
               name,
