@@ -1,4 +1,4 @@
-package com.example.soccer_master
+package com.tomohiro.soccerMaster
 
 import io.flutter.embedding.android.FlutterActivity
 
