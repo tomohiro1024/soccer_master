@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
 import 'quiz_screen.dart';
 
-class LevelSelectionScreen extends StatelessWidget {
+class LevelSelectionScreen extends StatefulWidget {
   final League league;
   final Genre genre;
 
@@ -13,9 +14,34 @@ class LevelSelectionScreen extends StatelessWidget {
   });
 
   @override
+  State<LevelSelectionScreen> createState() => _LevelSelectionScreenState();
+}
+
+class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
+  Map<Level, bool> perfectLevels = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPerfectScores();
+  }
+
+  Future<void> _loadPerfectScores() async {
+    final prefs = await SharedPreferences.getInstance();
+    final Map<Level, bool> results = {};
+    for (final level in Level.values) {
+      final key = 'perfect_${widget.league.name}_${widget.genre.name}_${level.name}';
+      results[level] = prefs.getBool(key) ?? false;
+    }
+    setState(() {
+      perfectLevels = results;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final leagueName = league == League.jLeague ? 'Jリーグ' : 'プレミアリーグ';
-    final genreName = genre == Genre.teamLogo ? 'チームロゴ' : '選手名当て';
+    final leagueName = widget.league == League.jLeague ? 'Jリーグ' : 'プレミアリーグ';
+    final genreName = widget.genre == Genre.teamLogo ? 'チームロゴ' : '選手名当て';
 
     return Scaffold(
       appBar: AppBar(
@@ -84,80 +110,100 @@ class LevelSelectionScreen extends StatelessWidget {
     String subtitle,
     int starCount,
   ) {
+    final isPerfect = perfectLevels[level] ?? false;
+
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
+      onTap: () async {
+        await Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => QuizScreen(
-              league: league,
-              genre: genre,
+              league: widget.league,
+              genre: widget.genre,
               level: level,
             ),
           ),
         );
+        _loadPerfectScores();
       },
-      child: Container(
-        width: 280,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.2),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
+      child: Stack(
+        children: [
+          Container(
+            width: 280,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: isPerfect ? Colors.yellow : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.2),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: const Color(0xFF1565C0),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  starCount,
-                  (index) => const Icon(
-                    Icons.star,
-                    size: 18,
-                    color: Colors.amber,
+            child: Row(
+              children: [
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1565C0),
+                    borderRadius: BorderRadius.circular(15),
                   ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      starCount,
+                      (index) => const Icon(
+                        Icons.star,
+                        size: 18,
+                        color: Colors.amber,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1565C0),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (isPerfect)
+            const Positioned(
+              right: 12,
+              bottom: 8,
+              child: Text(
+                '済',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
                 ),
               ),
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1565C0),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }

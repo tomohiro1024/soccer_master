@@ -62,6 +62,7 @@ class _QuizScreenState extends State<QuizScreen> {
               totalCount: quizzes.length,
               league: widget.league,
               genre: widget.genre,
+              level: widget.level,
             ),
           ),
         );

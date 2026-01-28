@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
 import 'level_selection_screen.dart';
 
@@ -7,6 +8,7 @@ class ResultScreen extends StatelessWidget {
   final int totalCount;
   final League league;
   final Genre genre;
+  final Level level;
 
   const ResultScreen({
     super.key,
@@ -14,7 +16,16 @@ class ResultScreen extends StatelessWidget {
     required this.totalCount,
     required this.league,
     required this.genre,
+    required this.level,
   });
+
+  Future<void> _savePerfectScore() async {
+    if (correctCount == totalCount) {
+      final prefs = await SharedPreferences.getInstance();
+      final key = 'perfect_${league.name}_${genre.name}_${level.name}';
+      await prefs.setBool(key, true);
+    }
+  }
 
   String _getMessage() {
     final percentage = correctCount / totalCount;
@@ -44,6 +55,8 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _savePerfectScore();
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
