@@ -20,6 +20,42 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            content: const Text('2026年1月時点でのクイズとなります'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Center(child: const Text('OK')),
+                              ),
+                            ],
+                          ),
+                    );
+                  },
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    decoration: const BoxDecoration(
+                      color: Colors.orange,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: Text(
+                        '!',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 18),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
@@ -78,10 +114,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: const Text(
                     'クイズを始める',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
