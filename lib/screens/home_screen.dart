@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'league_selection_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String _version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadVersion();
+  }
+
+  Future<void> _loadVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      _version = packageInfo.version;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +112,15 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 60),
+                const Text(
+                  '2026',
+                  style: TextStyle(
+                    fontSize: 46,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -115,6 +144,14 @@ class HomeScreen extends StatelessWidget {
                   child: const Text(
                     'クイズを始める',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 36),
+                Text(
+                  'version: $_version',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.white70,
                   ),
                 ),
               ],
