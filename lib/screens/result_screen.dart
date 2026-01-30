@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
-import 'level_selection_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   final int correctCount;
@@ -128,13 +127,7 @@ class ResultScreen extends StatelessWidget {
                 const SizedBox(height: 48),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            LevelSelectionScreen(league: league, genre: genre),
-                      ),
-                    );
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
