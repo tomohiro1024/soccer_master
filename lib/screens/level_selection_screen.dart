@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
-import 'quiz_screen.dart';
+import 'countdown_screen.dart';
 
 class LevelSelectionScreen extends StatefulWidget {
   final League league;
@@ -117,7 +117,7 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
         await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => QuizScreen(
+            builder: (context) => CountdownScreen(
               league: widget.league,
               genre: widget.genre,
               level: level,
