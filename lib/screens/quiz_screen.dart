@@ -19,12 +19,16 @@ class QuizScreen extends StatefulWidget {
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _QuizScreenState extends State<QuizScreen>
+    with TickerProviderStateMixin {
   late List<Quiz> quizzes;
   int currentIndex = 0;
   int correctCount = 0;
   int? selectedIndex;
   bool answered = false;
+
+  late AnimationController _timerController;
+  static const int countdownSeconds = 20;
 
   @override
   void initState() {
@@ -32,10 +36,69 @@ class _QuizScreenState extends State<QuizScreen> {
     quizzes = QuizData.getQuizzes(widget.league, widget.genre, widget.level);
     quizzes.shuffle();
     quizzes = quizzes.take(5).toList();
+
+    _timerController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: countdownSeconds),
+    );
+    _timerController.addStatusListener(_onTimerComplete);
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timerController.removeStatusListener(_onTimerComplete);
+    _timerController.dispose();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _timerController.forward(from: 0.0);
+  }
+
+  void _onTimerComplete(AnimationStatus status) {
+    if (status == AnimationStatus.completed && !answered) {
+      _handleTimeout();
+    }
+  }
+
+  void _handleTimeout() {
+    if (answered) return;
+
+    setState(() {
+      answered = true;
+    });
+
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      if (!mounted) return;
+      if (currentIndex < quizzes.length - 1) {
+        setState(() {
+          currentIndex++;
+          selectedIndex = null;
+          answered = false;
+        });
+        _startTimer();
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResultScreen(
+              correctCount: correctCount,
+              totalCount: quizzes.length,
+              league: widget.league,
+              genre: widget.genre,
+              level: widget.level,
+            ),
+          ),
+        );
+      }
+    });
   }
 
   void _selectAnswer(int index) {
     if (answered) return;
+
+    _timerController.stop();
 
     setState(() {
       selectedIndex = index;
@@ -53,6 +116,7 @@ class _QuizScreenState extends State<QuizScreen> {
           selectedIndex = null;
           answered = false;
         });
+        _startTimer();
       } else {
         Navigator.pushReplacement(
           context,
@@ -73,6 +137,7 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     final quiz = quizzes[currentIndex];
+    double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -115,7 +180,7 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(15),
             child: Column(
               children: [
                 LinearProgressIndicator(
@@ -123,8 +188,9 @@ class _QuizScreenState extends State<QuizScreen> {
                   backgroundColor: Colors.white30,
                   valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 15),
                 Container(
+                  height: height * 0.3,
                   width: double.infinity,
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
@@ -139,7 +205,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           child: Image.network(
                             quiz.imageUrl!,
                             width: 190,
-                            height: 190,
+                            height: height * 0.19,
                             fit: BoxFit.contain,
                             loadingBuilder: (context, child, loadingProgress) {
                               if (loadingProgress == null) return child;
@@ -178,7 +244,53 @@ class _QuizScreenState extends State<QuizScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 10),
+                AnimatedBuilder(
+                  animation: _timerController,
+                  builder: (context, child) {
+                    final remainingSeconds =
+                        ((1 - _timerController.value) * countdownSeconds).ceil();
+                    return Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.timer,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              '残り$remainingSeconds秒',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: LinearProgressIndicator(
+                            value: 1 - _timerController.value,
+                            backgroundColor: Colors.white30,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              _timerController.value > 0.75
+                                  ? Colors.red
+                                  : _timerController.value > 0.5
+                                      ? Colors.orange
+                                      : Colors.green,
+                            ),
+                            minHeight: 8,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    );
+                  },
+                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: quiz.options.length,
