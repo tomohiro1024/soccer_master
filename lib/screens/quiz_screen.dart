@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../models/quiz.dart';
-import '../data/quiz_data.dart';
+import '../providers/quiz_state_provider.dart';
 
-class QuizScreen extends StatefulWidget {
+class QuizScreen extends ConsumerStatefulWidget {
   final League league;
   final Genre genre;
   final Level level;
@@ -16,27 +17,20 @@ class QuizScreen extends StatefulWidget {
   });
 
   @override
-  State<QuizScreen> createState() => _QuizScreenState();
+  ConsumerState<QuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen>
+class _QuizScreenState extends ConsumerState<QuizScreen>
     with TickerProviderStateMixin {
-  late List<Quiz> quizzes;
-  int currentIndex = 0;
-  int correctCount = 0;
-  int? selectedIndex;
-  bool answered = false;
-
   late AnimationController _timerController;
   static const int countdownSeconds = 20;
+
+  ({League league, Genre genre, Level level}) get _params =>
+      (league: widget.league, genre: widget.genre, level: widget.level);
 
   @override
   void initState() {
     super.initState();
-    quizzes = QuizData.getQuizzes(widget.league, widget.genre, widget.level);
-    quizzes.shuffle();
-    quizzes = quizzes.take(5).toList();
-
     _timerController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: countdownSeconds),
@@ -57,60 +51,34 @@ class _QuizScreenState extends State<QuizScreen>
   }
 
   void _onTimerComplete(AnimationStatus status) {
-    if (status == AnimationStatus.completed && !answered) {
-      _handleTimeout();
+    if (status == AnimationStatus.completed) {
+      final quizState = ref.read(quizStateProvider(_params));
+      if (!quizState.answered) {
+        ref.read(quizStateProvider(_params).notifier).handleTimeout();
+        _advanceAfterDelay();
+      }
     }
   }
 
-  void _handleTimeout() {
-    if (answered) return;
-
-    setState(() {
-      answered = true;
-    });
-
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      if (!mounted) return;
-      if (currentIndex < quizzes.length - 1) {
-        setState(() {
-          currentIndex++;
-          selectedIndex = null;
-          answered = false;
-        });
-        _startTimer();
-      } else {
-        context.pushReplacement(
-          '/quiz/${widget.league.name}/${widget.genre.name}/${widget.level.name}/result?correct=$correctCount&total=${quizzes.length}',
-        );
-      }
-    });
-  }
-
   void _selectAnswer(int index) {
-    if (answered) return;
+    final quizState = ref.read(quizStateProvider(_params));
+    if (quizState.answered) return;
 
     _timerController.stop();
+    ref.read(quizStateProvider(_params).notifier).selectAnswer(index);
+    _advanceAfterDelay();
+  }
 
-    setState(() {
-      selectedIndex = index;
-      answered = true;
-      if (index == quizzes[currentIndex].correctIndex) {
-        correctCount++;
-      }
-    });
-
+  void _advanceAfterDelay() {
     Future.delayed(const Duration(milliseconds: 1000), () {
       if (!mounted) return;
-      if (currentIndex < quizzes.length - 1) {
-        setState(() {
-          currentIndex++;
-          selectedIndex = null;
-          answered = false;
-        });
+      final notifier = ref.read(quizStateProvider(_params).notifier);
+      if (notifier.advance()) {
         _startTimer();
       } else {
+        final state = ref.read(quizStateProvider(_params));
         context.pushReplacement(
-          '/quiz/${widget.league.name}/${widget.genre.name}/${widget.level.name}/result?correct=$correctCount&total=${quizzes.length}',
+          '/quiz/${widget.league.name}/${widget.genre.name}/${widget.level.name}/result?correct=${state.correctCount}&total=${state.quizzes.length}',
         );
       }
     });
@@ -118,12 +86,13 @@ class _QuizScreenState extends State<QuizScreen>
 
   @override
   Widget build(BuildContext context) {
-    final quiz = quizzes[currentIndex];
+    final quizState = ref.watch(quizStateProvider(_params));
+    final quiz = quizState.currentQuiz;
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('問題 ${currentIndex + 1} / ${quizzes.length}'),
+        title: Text('問題 ${quizState.currentIndex + 1} / ${quizState.quizzes.length}'),
         backgroundColor: const Color(0xFF1565C0),
         foregroundColor: Colors.white,
         leading: IconButton(
@@ -166,7 +135,7 @@ class _QuizScreenState extends State<QuizScreen>
             child: Column(
               children: [
                 LinearProgressIndicator(
-                  value: (currentIndex + 1) / quizzes.length,
+                  value: (quizState.currentIndex + 1) / quizState.quizzes.length,
                   backgroundColor: Colors.white30,
                   valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
@@ -279,7 +248,13 @@ class _QuizScreenState extends State<QuizScreen>
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12),
-                        child: _buildOptionButton(index, quiz.options[index], quiz.correctIndex),
+                        child: _buildOptionButton(
+                          index,
+                          quiz.options[index],
+                          quiz.correctIndex,
+                          quizState.selectedIndex,
+                          quizState.answered,
+                        ),
                       );
                     },
                   ),
@@ -292,7 +267,13 @@ class _QuizScreenState extends State<QuizScreen>
     );
   }
 
-  Widget _buildOptionButton(int index, String option, int correctIndex) {
+  Widget _buildOptionButton(
+    int index,
+    String option,
+    int correctIndex,
+    int? selectedIndex,
+    bool answered,
+  ) {
     Color backgroundColor = Colors.white;
     Color textColor = const Color(0xFF1B5E20);
     IconData? icon;

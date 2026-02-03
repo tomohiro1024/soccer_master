@@ -1,9 +1,10 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../models/quiz.dart';
+import '../providers/countdown_provider.dart';
 
-class CountdownScreen extends StatefulWidget {
+class CountdownScreen extends ConsumerWidget {
   final League league;
   final Genre genre;
   final Level level;
@@ -16,38 +17,17 @@ class CountdownScreen extends StatefulWidget {
   });
 
   @override
-  State<CountdownScreen> createState() => _CountdownScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final count = ref.watch(countdownProvider);
 
-class _CountdownScreenState extends State<CountdownScreen> {
-  int _count = 3;
-
-  @override
-  void initState() {
-    super.initState();
-    _startCountdown();
-  }
-
-  void _startCountdown() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (!mounted) {
-        timer.cancel();
-        return;
-      }
-
-      if (_count > 1) {
-        setState(() {
-          _count--;
-        });
-      } else {
-        timer.cancel();
-        context.pushReplacement('/quiz/${widget.league.name}/${widget.genre.name}/${widget.level.name}');
+    ref.listen<int>(countdownProvider, (previous, next) {
+      if (next == 0) {
+        context.pushReplacement(
+          '/quiz/${league.name}/${genre.name}/${level.name}',
+        );
       }
     });
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -59,7 +39,7 @@ class _CountdownScreenState extends State<CountdownScreen> {
         ),
         child: Center(
           child: Text(
-            '$_count',
+            count == 0 ? '1' : '$count',
             style: const TextStyle(
               fontSize: 120,
               fontWeight: FontWeight.bold,

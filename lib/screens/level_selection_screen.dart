@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
+import '../providers/perfect_scores_provider.dart';
 
-class LevelSelectionScreen extends StatefulWidget {
+class LevelSelectionScreen extends ConsumerWidget {
   final League league;
   final Genre genre;
 
@@ -14,34 +15,12 @@ class LevelSelectionScreen extends StatefulWidget {
   });
 
   @override
-  State<LevelSelectionScreen> createState() => _LevelSelectionScreenState();
-}
-
-class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
-  Map<Level, bool> perfectLevels = {};
-
-  @override
-  void initState() {
-    super.initState();
-    _loadPerfectScores();
-  }
-
-  Future<void> _loadPerfectScores() async {
-    final prefs = await SharedPreferences.getInstance();
-    final Map<Level, bool> results = {};
-    for (final level in Level.values) {
-      final key = 'perfect_${widget.league.name}_${widget.genre.name}_${level.name}';
-      results[level] = prefs.getBool(key) ?? false;
-    }
-    setState(() {
-      perfectLevels = results;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final leagueName = widget.league == League.jLeague ? 'Jリーグ' : 'プレミアリーグ';
-    final genreName = widget.genre == Genre.teamLogo ? 'チームロゴ' : '選手名当て';
+  Widget build(BuildContext context, WidgetRef ref) {
+    final perfectLevels = ref.watch(
+      perfectScoresProvider((league: league, genre: genre)),
+    );
+    final leagueName = league == League.jLeague ? 'Jリーグ' : 'プレミアリーグ';
+    final genreName = genre == Genre.teamLogo ? 'チームロゴ' : '選手名当て';
 
     return Scaffold(
       appBar: AppBar(
@@ -82,6 +61,7 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
                   'Level 1',
                   '初級 - 基本的な問題',
                   1,
+                  perfectLevels,
                 ),
                 const SizedBox(height: 16),
                 _buildLevelButton(
@@ -90,6 +70,7 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
                   'Level 2',
                   '中級 - 少し難しい問題',
                   2,
+                  perfectLevels,
                 ),
                 const SizedBox(height: 16),
                 _buildLevelButton(
@@ -98,6 +79,7 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
                   'Level 3',
                   '上級 - 難問に挑戦！',
                   3,
+                  perfectLevels,
                 ),
               ],
             ),
@@ -113,14 +95,13 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
     String title,
     String subtitle,
     int starCount,
+    Map<Level, bool> perfectLevels,
   ) {
     final isPerfect = perfectLevels[level] ?? false;
 
     return GestureDetector(
       onTap: () {
-        context.push('/quiz/${widget.league.name}/${widget.genre.name}/${level.name}/countdown').then((_) {
-          _loadPerfectScores();
-        });
+        context.push('/quiz/${league.name}/${genre.name}/${level.name}/countdown');
       },
       child: Stack(
         children: [

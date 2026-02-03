@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
+import '../providers/perfect_scores_provider.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends ConsumerStatefulWidget {
   final int correctCount;
   final int totalCount;
   final League league;
@@ -19,16 +20,29 @@ class ResultScreen extends StatelessWidget {
     required this.level,
   });
 
+  @override
+  ConsumerState<ResultScreen> createState() => _ResultScreenState();
+}
+
+class _ResultScreenState extends ConsumerState<ResultScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _savePerfectScore();
+  }
+
   Future<void> _savePerfectScore() async {
-    if (correctCount == totalCount) {
-      final prefs = await SharedPreferences.getInstance();
-      final key = 'perfect_${league.name}_${genre.name}_${level.name}';
-      await prefs.setBool(key, true);
+    if (widget.correctCount == widget.totalCount) {
+      await ref
+          .read(perfectScoresProvider(
+            (league: widget.league, genre: widget.genre),
+          ).notifier)
+          .savePerfect(widget.level);
     }
   }
 
   String _getMessage() {
-    final percentage = correctCount / totalCount;
+    final percentage = widget.correctCount / widget.totalCount;
     if (percentage == 1.0) {
       return 'パーフェクト！すごい！';
     } else if (percentage >= 0.8) {
@@ -43,7 +57,7 @@ class ResultScreen extends StatelessWidget {
   }
 
   Color _getMessageColor() {
-    final percentage = correctCount / totalCount;
+    final percentage = widget.correctCount / widget.totalCount;
     if (percentage >= 0.8) {
       return Colors.amber;
     } else if (percentage >= 0.6) {
@@ -55,8 +69,6 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _savePerfectScore();
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -98,7 +110,7 @@ class ResultScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        '$correctCount / $totalCount',
+                        '${widget.correctCount} / ${widget.totalCount}',
                         style: const TextStyle(
                           fontSize: 48,
                           fontWeight: FontWeight.bold,
@@ -128,7 +140,7 @@ class ResultScreen extends StatelessWidget {
                 const SizedBox(height: 48),
                 ElevatedButton(
                   onPressed: () {
-                    context.go('/leagues/${league.name}/genres/${genre.name}/levels');
+                    context.go('/leagues/${widget.league.name}/genres/${widget.genre.name}/levels');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
