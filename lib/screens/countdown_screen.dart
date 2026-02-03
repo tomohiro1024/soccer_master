@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../models/quiz.dart';
-import 'quiz_screen.dart';
 
 class CountdownScreen extends StatefulWidget {
   final League league;
@@ -41,16 +41,7 @@ class _CountdownScreenState extends State<CountdownScreen> {
         });
       } else {
         timer.cancel();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => QuizScreen(
-              league: widget.league,
-              genre: widget.genre,
-              level: widget.level,
-            ),
-          ),
-        );
+        context.pushReplacement('/quiz/${widget.league.name}/${widget.genre.name}/${widget.level.name}');
       }
     });
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'league_selection_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -123,12 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LeagueSelectionScreen(),
-                      ),
-                    );
+                    context.go('/leagues');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,

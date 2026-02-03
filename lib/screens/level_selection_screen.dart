@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
-import 'countdown_screen.dart';
 
 class LevelSelectionScreen extends StatefulWidget {
   final League league;
@@ -48,6 +48,10 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
         title: Text('$leagueName - $genreName'),
         backgroundColor: const Color(0xFF1565C0),
         foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -113,18 +117,10 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
     final isPerfect = perfectLevels[level] ?? false;
 
     return GestureDetector(
-      onTap: () async {
-        await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CountdownScreen(
-              league: widget.league,
-              genre: widget.genre,
-              level: level,
-            ),
-          ),
-        );
-        _loadPerfectScores();
+      onTap: () {
+        context.push('/quiz/${widget.league.name}/${widget.genre.name}/${level.name}/countdown').then((_) {
+          _loadPerfectScores();
+        });
       },
       child: Stack(
         children: [

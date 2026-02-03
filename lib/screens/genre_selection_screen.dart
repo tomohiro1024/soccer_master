@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../models/quiz.dart';
-import 'level_selection_screen.dart';
 
 class GenreSelectionScreen extends StatelessWidget {
   final League league;
@@ -16,6 +16,10 @@ class GenreSelectionScreen extends StatelessWidget {
         title: Text('$leagueName - ジャンル選択'),
         backgroundColor: const Color(0xFF1565C0),
         foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -82,13 +86,7 @@ class GenreSelectionScreen extends StatelessWidget {
   ) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder:
-                (context) => LevelSelectionScreen(league: league, genre: genre),
-          ),
-        );
+        context.push('/leagues/${league.name}/genres/${genre.name}/levels');
       },
       child: Container(
         width: 280,

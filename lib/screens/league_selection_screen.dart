@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../models/quiz.dart';
-import 'genre_selection_screen.dart';
 
 class LeagueSelectionScreen extends StatelessWidget {
   const LeagueSelectionScreen({super.key});
@@ -76,12 +76,7 @@ class LeagueSelectionScreen extends StatelessWidget {
   ) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GenreSelectionScreen(league: league),
-          ),
-        );
+        context.push('/leagues/${league.name}/genres');
       },
       child: Container(
         width: 140,

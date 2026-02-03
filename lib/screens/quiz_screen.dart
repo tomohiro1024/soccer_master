@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../models/quiz.dart';
 import '../data/quiz_data.dart';
-import 'result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
   final League league;
@@ -79,17 +79,8 @@ class _QuizScreenState extends State<QuizScreen>
         });
         _startTimer();
       } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ResultScreen(
-              correctCount: correctCount,
-              totalCount: quizzes.length,
-              league: widget.league,
-              genre: widget.genre,
-              level: widget.level,
-            ),
-          ),
+        context.pushReplacement(
+          '/quiz/${widget.league.name}/${widget.genre.name}/${widget.level.name}/result?correct=$correctCount&total=${quizzes.length}',
         );
       }
     });
@@ -118,17 +109,8 @@ class _QuizScreenState extends State<QuizScreen>
         });
         _startTimer();
       } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ResultScreen(
-              correctCount: correctCount,
-              totalCount: quizzes.length,
-              league: widget.league,
-              genre: widget.genre,
-              level: widget.level,
-            ),
-          ),
+        context.pushReplacement(
+          '/quiz/${widget.league.name}/${widget.genre.name}/${widget.level.name}/result?correct=$correctCount&total=${quizzes.length}',
         );
       }
     });
@@ -160,7 +142,7 @@ class _QuizScreenState extends State<QuizScreen>
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.pop(context);
+                      context.pop();
                     },
                     child: const Text('終了する'),
                   ),

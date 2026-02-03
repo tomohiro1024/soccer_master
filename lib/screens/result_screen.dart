@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
 
@@ -127,7 +128,7 @@ class ResultScreen extends StatelessWidget {
                 const SizedBox(height: 48),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.go('/leagues/${league.name}/genres/${genre.name}/levels');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -151,7 +152,7 @@ class ResultScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () {
-                    Navigator.popUntil(context, (route) => route.isFirst);
+                    context.go('/');
                   },
                   child: const Text(
                     'ホームに戻る',
