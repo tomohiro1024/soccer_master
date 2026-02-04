@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../models/quiz.dart';
@@ -28,7 +29,23 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
   @override
   void initState() {
     super.initState();
+    _vibrate();
     _savePerfectScore();
+  }
+
+  void _vibrate() {
+    // 結果に応じて振動パターンを変える
+    final percentage = widget.correctCount / widget.totalCount;
+    if (percentage == 1.0) {
+      // パーフェクト！強めの振動
+      HapticFeedback.heavyImpact();
+    } else if (percentage >= 0.6) {
+      // 良い結果：中程度の振動
+      HapticFeedback.mediumImpact();
+    } else {
+      // 軽い振動
+      HapticFeedback.lightImpact();
+    }
   }
 
   Future<void> _savePerfectScore() async {
