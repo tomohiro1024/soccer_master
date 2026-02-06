@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/quiz.dart';
 import '../providers/perfect_scores_provider.dart';
 
@@ -31,6 +33,19 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     super.initState();
     _vibrate();
     _savePerfectScore();
+    _requestReview();
+  }
+
+  Future<void> _requestReview() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasShown = prefs.getBool('hasShownReview') ?? false;
+    if (hasShown) return;
+
+    final inAppReview = InAppReview.instance;
+    if (await inAppReview.isAvailable()) {
+      await inAppReview.requestReview();
+      await prefs.setBool('hasShownReview', true);
+    }
   }
 
   void _vibrate() {
