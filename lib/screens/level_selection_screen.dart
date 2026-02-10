@@ -20,7 +20,11 @@ class LevelSelectionScreen extends ConsumerWidget {
       perfectScoresProvider((league: league, genre: genre)),
     );
     final leagueName = league == League.jLeague ? 'Jリーグ' : 'プレミアリーグ';
-    final genreName = genre == Genre.teamLogo ? 'チームロゴ' : '選手名当て';
+    final genreName = switch (genre) {
+      Genre.teamLogo => 'チームロゴ',
+      Genre.playerName => '選手名当て',
+      Genre.stadium => 'スタジアム',
+    };
 
     return Scaffold(
       appBar: AppBar(
@@ -89,6 +93,12 @@ class LevelSelectionScreen extends ConsumerWidget {
     );
   }
 
+  bool _isLocked(Level level) {
+    return league == League.premierLeague &&
+        genre == Genre.stadium &&
+        level != Level.level1;
+  }
+
   Widget _buildLevelButton(
     BuildContext context,
     Level level,
@@ -98,18 +108,29 @@ class LevelSelectionScreen extends ConsumerWidget {
     Map<Level, bool> perfectLevels,
   ) {
     final isPerfect = perfectLevels[level] ?? false;
+    final locked = _isLocked(level);
 
     return GestureDetector(
-      onTap: () {
-        context.push('/quiz/${league.name}/${genre.name}/${level.name}/countdown');
-      },
+      onTap:
+          locked
+              ? null
+              : () {
+                context.push(
+                  '/quiz/${league.name}/${genre.name}/${level.name}/countdown',
+                );
+              },
       child: Stack(
         children: [
           Container(
             width: 280,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: isPerfect ? Colors.yellow : Colors.white,
+              color:
+                  locked
+                      ? Colors.grey[500]
+                      : isPerfect
+                      ? Colors.yellow
+                      : Colors.white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -132,11 +153,8 @@ class LevelSelectionScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
                       starCount,
-                      (index) => const Icon(
-                        Icons.star,
-                        size: 18,
-                        color: Colors.amber,
-                      ),
+                      (index) =>
+                          const Icon(Icons.star, size: 18, color: Colors.amber),
                     ),
                   ),
                 ),

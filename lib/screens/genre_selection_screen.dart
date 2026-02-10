@@ -60,6 +60,14 @@ class GenreSelectionScreen extends StatelessWidget {
                   '選手を当てよう！',
                 ),
                 const SizedBox(height: 24),
+                _buildGenreButton(
+                  context,
+                  Genre.stadium,
+                  Icons.stadium,
+                  'スタジアムクイズ',
+                  'スタジアムを当てよう！',
+                ),
+                const SizedBox(height: 24),
                 const Text(
                   '※他のジャンルは随時追加予定です！\nお楽しみに！',
                   textAlign: TextAlign.center,

@@ -20,6 +20,7 @@ enum League {
 enum Genre {
   teamLogo,
   playerName,
+  stadium,
 }
 
 enum Level {

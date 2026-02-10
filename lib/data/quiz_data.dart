@@ -233,6 +233,144 @@ class QuizData {
       ),
     ],
 
+    // Jリーグ - スタジアムクイズ - Level 1
+    'jLeague_stadium_level1': [
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['埼玉スタジアム2002', '東京スタジアム2003', '横浜スタジアム2004', '大宮スタジアム2005'],
+        correctIndex: 0,
+        imageUrl:
+            'https://newsatcl-pctr.c.yimg.jp/t/iwiz-yn/rpr/yanaiyumiko/00262282/title-1633702454847.jpeg?exp=10800',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['等々力陸上競技場', '日産スタジアム', '国立競技場', '埼玉スタジアム2002'],
+        correctIndex: 2,
+        imageUrl:
+            'https://www.jiji.com/news/handmade/topic/d4_ank/skk113-jpp033213641.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['メルカリスタジアム', '国立競技場', '等々力陸上競技場', 'パナソニックスタジアム吹田'],
+        correctIndex: 0,
+        imageUrl:
+            'https://www.yomiuri.co.jp/media/2025/06/20250619-OYT1I50172-1.jpg?type=large',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['豊田スタジアム', 'カシマスタジアム', '味の素スタジアム', 'ノエビアスタジアム神戸'],
+        correctIndex: 2,
+        imageUrl:
+            'https://www.nihonsekkei.co.jp/wp-content/uploads/2016/11/633c12f33b63084a1f837e4547dea7fb.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['パナソニックスタジアム吹田', '等々力陸上競技場', '豊田スタジアム', 'ヨドコウ桜スタジアム'],
+        correctIndex: 0,
+        imageUrl:
+            'https://www2.suitacityfootballstadium.jp/c/common/images/images_card_00.jpg',
+      ),
+    ],
+    // Jリーグ - スタジアムクイズ - Level 2
+    'jLeague_stadium_level2': [
+      Quiz(
+        question: 'このスタジアムは？',
+        options: [
+          'パナソニックスタジアム吹田',
+          'ノエビアスタジアム神戸',
+          'ヨドコウ桜スタジアム',
+          'エディオンピースウイング広島',
+        ],
+        correctIndex: 3,
+        imageUrl:
+            'https://www.sanfrecce.co.jp/asset/img/game/stadium/edion_peacewing01.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: [
+          'デンカビッグスワンスタジアム',
+          '町田GIONスタジアム',
+          'ベストアメニティスタジアム',
+          'レゾナックドーム大分',
+        ],
+        correctIndex: 1,
+        imageUrl:
+            'https://storage.googleapis.com/studio-cms-assets/projects/EjOQw5GdaJ/s-1489x1135_v-fms_webp_8004f1ca-a561-4cf2-a1cd-c3dd3a223565_middle.webp',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['エディオンピースウイング広島', 'デンカビッグスワンスタジアム', '等々力陸上競技場', 'ヨドコウ桜スタジアム'],
+        correctIndex: 2,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/0/04/Todoroki_15031401.JPG',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: [
+          'ヨドコウ桜スタジアム',
+          'レゾナックドーム大分',
+          'ベストアメニティスタジアム',
+          'エディオンピースウイング広島',
+        ],
+        correctIndex: 0,
+        imageUrl: 'https://www.cerezo.jp/stadium/photo_slide_03.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['味の素スタジアム', 'デンカビッグスワンスタジアム', 'レゾナックドーム大分', 'ベストアメニティスタジアム'],
+        correctIndex: 1,
+        imageUrl: 'https://www.denka-bigswan.com/img/top/mainimage.jpg',
+      ),
+    ],
+    // Jリーグ - スタジアムクイズ - Level 3
+    'jLeague_stadium_level3': [
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['ヨドコウ桜スタジアム', 'レゾナックドーム大分', 'ベストアメニティスタジアム', '長崎スタジアムシティ'],
+        correctIndex: 3,
+        imageUrl:
+            'https://www.nagasakistadiumcity.com/wp-content/themes/stadiumcity/images/top/front_top_sp.webp?20250422',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: [
+          'ベストアメニティスタジアム',
+          'トランスコスモススタジアム長崎',
+          'レゾナックドーム大分',
+          'ケーズデンキスタジアム水戸',
+        ],
+        correctIndex: 3,
+        imageUrl:
+            'https://lh6.googleusercontent.com/proxy/iRb8lOecDlEPXkIzB0Z-SPhSgtXrc1SGiGcWI5iotNSHRprsrd4PmMd2ffXg2flx_oz28jJAA_wqtgrLZ-JYBSODM6gY4Mj5V7BEKjyL78Lp7TqvhjoT49U_',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: [
+          'nack5スタジアム大宮',
+          'ベストアメニティスタジアム',
+          'トランスコスモススタジアム長崎',
+          'カンセキスタジアムとちぎ',
+        ],
+        correctIndex: 0,
+        imageUrl:
+            'https://visitsaitamacity.jp/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTY0MDYsInB1ciI6ImJsb2JfaWQifX0=--e12e4e4db9345425a27b52911f763636bc664ca1/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwicmVzaXplX3RvX2ZpdCI6WzE5MjAsMTA4MF0sInNhdmVyIjp7InF1YWxpdHkiOjgwfX0sInB1ciI6InZhcmlhdGlvbiJ9fQ==--772cc9d1a056963b4ab06d595a9f3bcbf7fb19a2/NACK5%E3%82%B9%E3%82%BF%E3%82%B7%E3%82%99%E3%82%A2%E3%83%A0%E5%A4%A7%E5%AE%AE1.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['カンセキスタジアムとちぎ', '札幌ドーム', 'ケーズデンキスタジアム水戸', 'ニンジニアスタジアム'],
+        correctIndex: 1,
+        imageUrl:
+            'https://www.sapporo-dome.co.jp/cms/wp-content/themes/dome/img/cms/img-event-consadole.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['ニンジニアスタジアム', 'カンセキスタジアムとちぎ', '豊田スタジアム', 'タピックスタジアム名護'],
+        correctIndex: 2,
+        imageUrl:
+            'https://sakatori.com/wp-content/uploads/2024/02/IMG_9884-1024x768.jpg',
+      ),
+    ],
+
     // プレミアリーグ - チームロゴクイズ - Level 1
     'premierLeague_teamLogo_level1': [
       Quiz(
@@ -345,6 +483,136 @@ class QuizData {
         correctIndex: 0,
         imageUrl:
             'https://www.soccer-king.jp/wp-content/uploads/2016/03/leicester_city_ver2015.png',
+      ),
+    ],
+
+    // プレミアリーグ - スタジアムクイズ - Level 1
+    'premierLeague_stadium_level1': [
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['アンフィールド', 'オールド・トラフォード', 'エミレーツ・スタジアム', 'スタンフォード・ブリッジ'],
+        correctIndex: 0,
+        imageUrl:
+            'https://number.ismcdn.jp/mwimgs/b/6/1200/img_b6dccd6cc922afe650499963df6081a8310050.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: [
+          'エティハド・スタジアム',
+          'エミレーツ・スタジアム',
+          'トッテナム・ホットスパー・スタジアム',
+          'アンフィールド',
+        ],
+        correctIndex: 1,
+        imageUrl:
+            'https://worldsports-c.com/images/page_img/a95e85d4a52e19262e7d7a2e703ad5df.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['スタンフォード・ブリッジ', 'エミレーツ・スタジアム', 'オールド・トラフォード', 'エティハド・スタジアム'],
+        correctIndex: 2,
+        imageUrl:
+            'https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/38/d7/89.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: [
+          'トッテナム・ホットスパー・スタジアム',
+          'スタンフォード・ブリッジ',
+          'エティハド・スタジアム',
+          'ロンドン・スタジアム',
+        ],
+        correctIndex: 0,
+        imageUrl:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3fA8_yuMq1t_EVCcNHjeTy4cSV8tfgukN3Q&s',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['スタンフォード・ブリッジ', 'クレイヴン・コテージ', 'ロンドン・スタジアム', 'セルハースト・パーク'],
+        correctIndex: 0,
+        imageUrl:
+            'https://www.football-zone.net/wp-content/uploads/2023/03/19222212/20230319-Stanford-Bridge-GettyImages.jpg',
+      ),
+    ],
+    // プレミアリーグ - スタジアムクイズ - Level 2
+    'premierLeague_stadium_level2': [
+      Quiz(
+        question: 'このスタジアムは？',
+        options: [
+          'トッテナム・ホットスパー・スタジアム',
+          'セント・ジェームズ・パーク',
+          'グディソン・パーク',
+          'ヴィラ・パーク',
+        ],
+        correctIndex: 0,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Tottenham_Hotspur_Stadium.jpg/1280px-Tottenham_Hotspur_Stadium.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['エランド・ロード', 'セント・ジェームズ・パーク', 'ヴィラ・パーク', 'グディソン・パーク'],
+        correctIndex: 1,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/St_James_Park.jpg/1280px-St_James_Park.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['ロンドン・スタジアム', 'グディソン・パーク', 'ヴィラ・パーク', 'クレイヴン・コテージ'],
+        correctIndex: 2,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Villa_Park.jpg/1280px-Villa_Park.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['セルハースト・パーク', 'ロンドン・スタジアム', 'エランド・ロード', 'クレイヴン・コテージ'],
+        correctIndex: 1,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/London_Stadium.jpg/1280px-London_Stadium.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['グディソン・パーク', 'キング・パワー・スタジアム', 'セルハースト・パーク', 'エランド・ロード'],
+        correctIndex: 0,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Goodison_Park.jpg/1280px-Goodison_Park.jpg',
+      ),
+    ],
+    // プレミアリーグ - スタジアムクイズ - Level 3
+    'premierLeague_stadium_level3': [
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['キング・パワー・スタジアム', 'セルハースト・パーク', 'クレイヴン・コテージ', 'カーロウ・ロード'],
+        correctIndex: 1,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Selhurst_Park.jpg/1280px-Selhurst_Park.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['カーロウ・ロード', 'クレイヴン・コテージ', 'ブラモール・レーン', 'モリニュー・スタジアム'],
+        correctIndex: 1,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Craven_Cottage.jpg/1280px-Craven_Cottage.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['モリニュー・スタジアム', 'ブラモール・レーン', 'ディーン・コート', 'ポートマン・ロード'],
+        correctIndex: 0,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Molineux_Stadium.jpg/1280px-Molineux_Stadium.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['ポートマン・ロード', 'ブラモール・レーン', 'カーロウ・ロード', 'ディーン・コート'],
+        correctIndex: 2,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Carrow_Road.jpg/1280px-Carrow_Road.jpg',
+      ),
+      Quiz(
+        question: 'このスタジアムは？',
+        options: ['ディーン・コート', 'ポートマン・ロード', 'ブラモール・レーン', 'GTCスタジアム'],
+        correctIndex: 2,
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Bramall_Lane.jpg/1280px-Bramall_Lane.jpg',
       ),
     ],
 
