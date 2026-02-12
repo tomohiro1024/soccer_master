@@ -49,7 +49,6 @@ class GenreSelectionScreen extends StatelessWidget {
                   Genre.teamLogo,
                   Icons.shield,
                   'チームロゴクイズ',
-                  'チーム名を当てよう！',
                 ),
                 const SizedBox(height: 24),
                 _buildGenreButton(
@@ -57,7 +56,6 @@ class GenreSelectionScreen extends StatelessWidget {
                   Genre.playerName,
                   Icons.person,
                   '選手名当てクイズ',
-                  '選手を当てよう！',
                 ),
                 const SizedBox(height: 24),
                 _buildGenreButton(
@@ -65,7 +63,6 @@ class GenreSelectionScreen extends StatelessWidget {
                   Genre.stadium,
                   Icons.stadium,
                   'スタジアムクイズ',
-                  'スタジアムを当てよう！',
                 ),
                 const SizedBox(height: 24),
                 const Text(
@@ -90,13 +87,13 @@ class GenreSelectionScreen extends StatelessWidget {
     Genre genre,
     IconData icon,
     String title,
-    String subtitle,
   ) {
     return GestureDetector(
       onTap: () {
         context.push('/leagues/${league.name}/genres/${genre.name}/levels');
       },
       child: Container(
+        height: 90,
         width: 280,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
@@ -134,10 +131,6 @@ class GenreSelectionScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(fontSize: 14, color: Colors.grey),
-                ),
               ],
             ),
           ],
