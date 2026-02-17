@@ -32,8 +32,9 @@ class GenreSelectionScreen extends StatelessWidget {
         child: SafeArea(
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const SizedBox(height: 24),
                 const Text(
                   'クイズのジャンルを\n選んでください',
                   textAlign: TextAlign.center,
@@ -44,26 +45,32 @@ class GenreSelectionScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 48),
-                _buildGenreButton(
-                  context,
-                  Genre.teamLogo,
-                  Icons.shield,
-                  'チームロゴクイズ',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildGenreButton(
+                      context,
+                      Genre.teamLogo,
+                      Icons.shield,
+                      'チームロゴ',
+                    ),
+                    const SizedBox(height: 24),
+                    _buildGenreButton(
+                      context,
+                      Genre.playerName,
+                      Icons.person,
+                      '',
+                    ),
+                    const SizedBox(height: 24),
+                    _buildGenreButton(
+                      context,
+                      Genre.stadium,
+                      Icons.stadium,
+                      '',
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 24),
-                _buildGenreButton(
-                  context,
-                  Genre.playerName,
-                  Icons.person,
-                  '選手名当てクイズ',
-                ),
-                const SizedBox(height: 24),
-                _buildGenreButton(
-                  context,
-                  Genre.stadium,
-                  Icons.stadium,
-                  'スタジアムクイズ',
-                ),
+
                 const SizedBox(height: 24),
                 const Text(
                   '※他のジャンルは随時追加予定です！\nお楽しみに！',
@@ -93,9 +100,9 @@ class GenreSelectionScreen extends StatelessWidget {
         context.push('/leagues/${league.name}/genres/${genre.name}/levels');
       },
       child: Container(
-        height: 90,
-        width: 280,
-        padding: const EdgeInsets.all(20),
+        height: 120,
+        width: 120,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -107,31 +114,27 @@ class GenreSelectionScreen extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 60,
-              height: 60,
+              width: 65,
+              height: 65,
               decoration: BoxDecoration(
                 color: const Color(0xFF1565C0),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Icon(icon, size: 36, color: Colors.white),
             ),
-            const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1565C0),
-                  ),
-                ),
-                const SizedBox(height: 4),
-              ],
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF1565C0),
+              ),
             ),
           ],
         ),
