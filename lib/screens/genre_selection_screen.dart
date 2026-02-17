@@ -59,19 +59,19 @@ class GenreSelectionScreen extends StatelessWidget {
                       context,
                       Genre.playerName,
                       Icons.person,
-                      '',
+                      '選手',
                     ),
                     const SizedBox(height: 24),
                     _buildGenreButton(
                       context,
                       Genre.stadium,
                       Icons.stadium,
-                      '',
+                      'スタジアム',
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 50),
                 const Text(
                   '※他のジャンルは随時追加予定です！\nお楽しみに！',
                   textAlign: TextAlign.center,
@@ -95,14 +95,16 @@ class GenreSelectionScreen extends StatelessWidget {
     IconData icon,
     String title,
   ) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         context.push('/leagues/${league.name}/genres/${genre.name}/levels');
       },
       child: Container(
-        height: 120,
-        width: 120,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+        height: height * 0.14,
+        width: width * 0.3,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -131,9 +133,9 @@ class GenreSelectionScreen extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 10,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1565C0),
+                color: Colors.black,
               ),
             ),
           ],
